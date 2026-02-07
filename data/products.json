@@ -1,0 +1,125 @@
+[
+  {
+    "id": "kmu-001",
+    "title": "Palfinger PK 17502",
+    "slug": "palfinger-pk-17502-kmu-001",
+    "category": "kmu",
+    "status": "В наличии",
+    "brand": "Palfinger",
+    "model": "PK 17502",
+    "year": "2006",
+    "price": "Цена по запросу",
+    "city": "Санкт-Петербург",
+    "cta": "Узнать цену",
+    "short": "Универсальная КМУ для стройки и погрузки.",
+    "description": "Проверка перед покупкой. Доставка по РФ. Установка на шасси.",
+    "specs": "Груз: до 7 т; Вылет: до 14 м; Секций: 5; Управление: пульт",
+    "featured": true,
+    "featured_rank": "1",
+    "images": [
+      "/assets/uploads/kmu/palfinger-pk-17502-kmu-001-5400766391.png",
+      "/assets/uploads/kmu/palfinger-pk-17502-kmu-001-bfe682ef4a.png",
+      "/assets/uploads/kmu/palfinger-pk-17502-kmu-001-217c0af887.png",
+      "/assets/uploads/kmu/palfinger-pk-17502-kmu-001-6a4acd3234.png"
+    ],
+    "specs_table": [
+      {
+        "k": "Груз",
+        "v": "до 7 т"
+      },
+      {
+        "k": "Вылет",
+        "v": "до 14 м"
+      },
+      {
+        "k": "Секций",
+        "v": "5"
+      },
+      {
+        "k": "Управление",
+        "v": "пульт"
+      }
+    ],
+    "image": "/assets/uploads/kmu/palfinger-pk-17502-kmu-001-5400766391.png"
+  },
+  {
+    "id": "kmu-002",
+    "title": "Hiab XS 166",
+    "slug": "hiab-xs-166-kmu-002",
+    "category": "kmu",
+    "status": "Под заказ",
+    "brand": "Hiab",
+    "model": "XS 166",
+    "year": "2008",
+    "price": "Цена по запросу",
+    "city": "Европа",
+    "cta": "Узнать цену",
+    "short": "Надёжная серия HIAB под разные задачи.",
+    "description": "Подбор аналогов. Документы. Логистика.",
+    "specs": "Груз: до 6 т; Вылет: до 12 м; Секций: 4; Управление: рычаги/пульт",
+    "featured": true,
+    "featured_rank": "2",
+    "images": [
+      "/assets/img/placeholder.svg"
+    ],
+    "specs_table": [
+      {
+        "k": "Груз",
+        "v": "до 6 т"
+      },
+      {
+        "k": "Вылет",
+        "v": "до 12 м"
+      },
+      {
+        "k": "Секций",
+        "v": "4"
+      },
+      {
+        "k": "Управление",
+        "v": "рычаги/пульт"
+      }
+    ],
+    "image": "/assets/img/placeholder.svg"
+  },
+  {
+    "id": "kmu-003",
+    "title": "HMF 2620-K",
+    "slug": "hmf-2620-k-kmu-003",
+    "category": "kmu",
+    "status": "В пути",
+    "brand": "HMF",
+    "model": "2620-K",
+    "year": "2010",
+    "price": "Цена по запросу",
+    "city": "Санкт-Петербург",
+    "cta": "Узнать цену",
+    "short": "Хороший баланс цены и возможностей.",
+    "description": "Проверка + видео. Доставка. Установка.",
+    "specs": "Груз: до 8 т; Вылет: до 15 м; Секций: 6; Управление: пульт",
+    "featured": true,
+    "featured_rank": "3",
+    "images": [
+      "/assets/img/placeholder.svg"
+    ],
+    "specs_table": [
+      {
+        "k": "Груз",
+        "v": "до 8 т"
+      },
+      {
+        "k": "Вылет",
+        "v": "до 15 м"
+      },
+      {
+        "k": "Секций",
+        "v": "6"
+      },
+      {
+        "k": "Управление",
+        "v": "пульт"
+      }
+    ],
+    "image": "/assets/img/placeholder.svg"
+  }
+]

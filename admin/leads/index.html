@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Админка — лиды</title>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <style>
+    .admin-wrap{padding:24px 0}
+    .admin-table{width:100%;border-collapse:collapse}
+    .admin-table th,.admin-table td{border-bottom:1px solid rgba(255,255,255,.08);padding:10px 8px;vertical-align:top}
+    .admin-table th{text-align:left;opacity:.85;font-size:.92rem}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+    .small{font-size:.9rem}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .grow{flex:1}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">Мир манипуляторов</a>
+      <nav class="nav">
+        <a href="/catalog/">Каталог</a>
+        <a href="/services/">Услуги</a>
+        <a href="/admin/">Товары</a>
+        <a href="/admin/leads/" class="active">Лиды</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container admin-wrap">
+    <div class="row">
+      <h1 style="margin:0">Админка: лиды</h1>
+      <div class="grow"></div>
+      <a class="btn btn-ghost" href="/api/leads.csv">Экспорт CSV</a>
+      <button class="btn btn-primary" id="btnReload">Обновить</button>
+    </div>
+    <p class="muted">Заявки с форм сайта (узнать цену / подбор / консультация). Здесь отображаются записи из leads/leads.csv.</p>
+
+    <section class="card pad">
+      <div style="overflow:auto">
+        <table class="admin-table" id="tbl">
+          <thead>
+            <tr>
+              <th>Дата</th>
+              <th>IP</th>
+              <th>Тип</th>
+              <th>Страница</th>
+              <th>Поля</th>
+              <th class="small">UTM</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="muted small" id="status" style="margin-top:10px"></div>
+    </section>
+  </main>
+
+  <script>
+    const $ = (id)=>document.getElementById(id);
+    async function api(path){
+      const res = await fetch(path);
+      if(!res.ok) throw new Error(res.status+" "+res.statusText);
+      return res.json();
+    }
+    function esc(str){
+      return (str||"").replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    }
+    async function refresh(){
+      $("status").textContent = "Загрузка…";
+      const leads = await api("/api/leads");
+      const tbody = $("tbl").querySelector("tbody");
+      tbody.innerHTML = "";
+      leads.slice().reverse().forEach(l=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="mono small">${esc(l.ts||"")}</td>
+          <td class="mono small">${esc(l.ip||"")}</td>
+          <td class="mono small">${esc(l.lead_type||"")}</td>
+          <td class="small">${esc(l.page||"")}</td>
+          <td class="small">${esc(l.fields_pretty||"")}</td>
+          <td class="mono small">${esc(l.utm_pretty||"")}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+      $("status").textContent = "Всего лидов: " + leads.length;
+    }
+    $("btnReload").addEventListener("click", refresh);
+    refresh();
+  </script>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Админка — товары</title>
+  <link rel="stylesheet" href="/assets/css/styles.css"/>
+  <style>
+    .admin-wrap{padding:22px 0 60px}
+    .admin-grid{display:grid;grid-template-columns:340px 1fr;gap:18px}
+    @media(max-width:980px){.admin-grid{grid-template-columns:1fr}}
+    .list{display:flex;flex-direction:column;gap:8px;max-height:70vh;overflow:auto}
+    .item{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.02);cursor:pointer}
+    .item:hover{background:rgba(255,255,255,.05)}
+    .item.active{border-color:rgba(255,255,255,.22)}
+    .item .t{font-weight:700}
+    .item .m{opacity:.8;font-size:12px}
+    .gallery-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+    @media(max-width:980px){.gallery-grid{grid-template-columns:repeat(3,1fr)}}
+    .thumb{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:rgba(255,255,255,.03)}
+    .thumb img{width:100%;height:82px;object-fit:cover;display:block}
+    .thumb .bar{position:absolute;left:6px;right:6px;bottom:6px;display:flex;gap:6px}
+    .thumb .mini{padding:6px 8px;border-radius:12px;border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--text);font-size:12px;cursor:pointer}
+    .thumb .mini:hover{background:rgba(0,0,0,.35)}
+    .mini.danger{border-color:rgba(255,80,80,.35)}
+    .mini.star{border-color:rgba(255,220,0,.35)}
+    .hint{font-size:12px;opacity:.85}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="brand" href="/">Мир манипуляторов</a>
+      <nav class="nav">
+        <a href="/catalog/">Каталог</a>
+        <a href="/services/">Услуги</a>
+        <a class="active" href="/admin/">Админка</a>
+        <a href="/admin/leads/">Лиды</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container admin-wrap">
+    <div class="row" style="gap:10px">
+      <h1 style="margin:0">Админка: товары</h1>
+      <div class="grow"></div>
+      <button class="btn sm" id="btnReload" type="button">Обновить</button>
+      <button class="btn sm" id="btnImport" type="button">Импорт из CSV</button>
+      <button class="btn sm primary" id="btnRebuild" type="button">Пересобрать страницы</button>
+    </div>
+    <p class="muted">Поддержка нескольких фото (до 10) для каждой карточки — в каталоге, на главной и на странице товара.</p>
+
+    <div class="admin-grid">
+      <section class="card pad">
+        <div class="row" style="gap:10px">
+          <input class="input" id="q" placeholder="Поиск по названию / бренду / модели"/>
+          <button class="btn sm ghost" id="btnNew" type="button">Новый</button>
+        </div>
+        <div class="hint" style="margin:10px 0 12px">Кликни по товару, чтобы редактировать.</div>
+        <div class="list" id="list"></div>
+      </section>
+
+      <section class="card pad">
+        <div class="row" style="gap:10px;align-items:flex-start">
+          <div>
+            <div class="hint">ID</div>
+            <div class="mono" id="pid" style="opacity:.9">—</div>
+          </div>
+          <div class="grow"></div>
+          <button class="btn sm danger" id="btnDelete" type="button" disabled>Удалить</button>
+          <button class="btn sm primary" id="btnSave" type="button">Сохранить</button>
+        </div>
+
+        <div class="grid2" style="margin-top:14px">
+          <label class="field"><span>Название</span><input class="input" id="title" placeholder="Например: Palfinger PK 17502"/></label>
+          <label class="field"><span>Slug</span><input class="input mono" id="slug" placeholder="palfinger-pk-17502"/></label>
+
+          <label class="field"><span>Категория</span>
+            <select class="input" id="category">
+              <option value="kmu">КМУ</option>
+              <option value="manipulator">Манипуляторы</option>
+              <option value="kran">Краны</option>
+              <option value="parts">Запчасти</option>
+              <option value="other">Другое</option>
+            </select>
+          </label>
+          <label class="field"><span>Статус</span><input class="input" id="status" placeholder="В наличии"/></label>
+
+          <label class="field"><span>Бренд</span><input class="input" id="brand" placeholder="Palfinger"/></label>
+          <label class="field"><span>Модель</span><input class="input" id="model" placeholder="PK 17502"/></label>
+
+          <label class="field"><span>Год</span><input class="input" id="year" placeholder="2006"/></label>
+          <label class="field"><span>Цена</span><input class="input" id="price" placeholder="Цена по запросу"/></label>
+
+          <label class="field"><span>Город</span><input class="input" id="city" placeholder="Санкт-Петербург"/></label>
+          <label class="field"><span>Текст кнопки</span><input class="input" id="cta" placeholder="Узнать цену"/></label>
+
+          <label class="field" style="grid-column:1/-1"><span>Короткое описание</span>
+            <textarea class="input" id="short" rows="2" placeholder="1–2 предложения"></textarea>
+          </label>
+
+          <label class="field" style="grid-column:1/-1"><span>Описание</span>
+            <textarea class="input" id="description" rows="5" placeholder="Абзацы можно разделять переносами строк"></textarea>
+          </label>
+
+          <label class="field" style="grid-column:1/-1"><span>Характеристики (через ; или перенос строки, формат: Ключ: Значение)</span>
+            <textarea class="input mono" id="specs" rows="4" placeholder="Груз: ...\nВылет: ...\nСекций: ..."></textarea>
+          </label>
+
+          <label class="field"><span>На главной</span>
+            <div class="row" style="gap:10px;align-items:center">
+              <input type="checkbox" id="featured" style="width:18px;height:18px"/>
+              <span class="hint">показывать в блоке</span>
+            </div>
+          </label>
+          <label class="field"><span>Порядок (ранг)</span><input class="input" id="featured_rank" placeholder="например: 10"/></label>
+        </div>
+
+        <hr class="hr" style="margin:18px 0"/>
+
+        <h2 style="margin:0 0 10px">Фото (до 10)</h2>
+        <div class="hint">Порядок важен: первое фото — обложка (показывается в превью и для соцсетей).</div>
+
+        <div class="row" style="margin-top:10px;gap:10px;flex-wrap:wrap">
+          <input class="input" id="imageFiles" type="file" accept="image/*" multiple style="max-width:360px"/>
+          <button class="btn sm ghost" id="btnUpload" type="button">Загрузить выбранные</button>
+          <button class="btn sm ghost" id="btnClearImages" type="button">Очистить</button>
+          <div class="grow"></div>
+          <div class="hint" id="imgCount">0/10</div>
+        </div>
+
+        <label class="field" style="margin-top:10px">
+          <span>Ссылки на фото (по одной в строке)</span>
+          <textarea class="input mono" id="images" rows="4" placeholder="/assets/uploads/kmu/your-photo.webp"></textarea>
+        </label>
+
+        <div class="gallery-grid" id="galleryPreview"></div>
+        <div class="muted" id="statusText" style="margin-top:12px"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="muted">© Мир манипуляторов</div>
+      <div class="muted">Админка</div>
+    </div>
+  </footer>
+
+<script>
+const $ = (id)=>document.getElementById(id);
+
+const state = { products: [], filtered: [], currentId: null };
+
+function escHtml(s){
+  return (s||"").toString()
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#39;");
+}
+
+function slugify(s){
+  return (s||"")
+    .toLowerCase()
+    .replace(/ё/g,"е")
+    .replace(/[^a-z0-9а-я\s-]/g,"")
+    .trim()
+    .replace(/\s+/g,"-")
+    .replace(/-+/g,"-");
+}
+
+async function api(path, opts={}){
+  opts = Object.assign({credentials:'include'}, opts);
+  const res = await fetch(path, opts);
+  const ct = res.headers.get("content-type") || "";
+  const data = ct.includes("application/json") ? await res.json().catch(()=>null) : await res.text().catch(()=>null);
+  if(!res.ok) throw new Error((data && data.error) ? data.error : ("HTTP " + res.status));
+  return data;
+}
+
+function normalizeImages(arr){
+  let items = Array.isArray(arr) ? arr : (arr||"").toString().split(/\n+/);
+  items = items.map(x=> (x||"").toString().trim()).filter(Boolean);
+  // unique keep order
+  const out=[];
+  const seen=new Set();
+  for(const x of items){
+    if(seen.has(x)) continue;
+    seen.add(x);
+    out.push(x);
+    if(out.length>=10) break;
+  }
+  return out;
+}
+
+function getFormImages(){
+  return normalizeImages($("images").value.split(/\n+/));
+}
+
+function setFormImages(images){
+  const arr = normalizeImages(images||[]);
+  $("images").value = arr.join("\n");
+  $("imgCount").textContent = arr.length + "/10";
+  renderGallery(arr);
+}
+
+function renderGallery(images){
+  const box = $("galleryPreview");
+  box.innerHTML = "";
+  const arr = normalizeImages(images);
+  arr.forEach((src, idx)=>{
+    const d = document.createElement("div");
+    d.className="thumb";
+    d.innerHTML = `
+      <img src="${escHtml(src)}" alt="photo ${idx+1}">
+      <div class="bar">
+        <button class="mini star" type="button" title="Сделать обложкой">★</button>
+        <button class="mini" type="button" title="Вверх">↑</button>
+        <button class="mini" type="button" title="Вниз">↓</button>
+        <button class="mini danger" type="button" title="Удалить">×</button>
+      </div>
+    `;
+    const [bStar,bUp,bDown,bDel] = d.querySelectorAll("button");
+    bStar.onclick = ()=>{
+      const cur = getFormImages();
+      const moved = cur.splice(idx,1)[0];
+      cur.unshift(moved);
+      setFormImages(cur);
+    };
+    bUp.onclick = ()=>{
+      const cur = getFormImages();
+      if(idx<=0) return;
+      [cur[idx-1],cur[idx]]=[cur[idx],cur[idx-1]];
+      setFormImages(cur);
+    };
+    bDown.onclick = ()=>{
+      const cur = getFormImages();
+      if(idx>=cur.length-1) return;
+      [cur[idx+1],cur[idx]]=[cur[idx],cur[idx+1]];
+      setFormImages(cur);
+    };
+    bDel.onclick = ()=>{
+      const cur = getFormImages();
+      cur.splice(idx,1);
+      setFormImages(cur);
+    };
+    box.appendChild(d);
+  });
+}
+
+function renderList(){
+  const box = $("list");
+  box.innerHTML="";
+  const arr = state.filtered.length ? state.filtered : state.products;
+  if(!arr.length){
+    box.innerHTML = '<div class="muted">Нет товаров</div>';
+    return;
+  }
+  arr.forEach(p=>{
+    const el = document.createElement("div");
+    el.className = "item" + (p.id===state.currentId ? " active":"");
+    const t = escHtml(p.title || (p.brand+" "+p.model).trim() || p.id);
+    const m = escHtml([p.category, p.status, p.price].filter(Boolean).join(" · "));
+    el.innerHTML = `<div class="t">${t}</div><div class="m">${m}</div>`;
+    el.onclick = ()=>selectProduct(p.id);
+    box.appendChild(el);
+  });
+}
+
+function setForm(p){
+  $("pid").textContent = p && p.id ? p.id : "—";
+  $("title").value = p?.title || "";
+  $("slug").value = p?.slug || "";
+  $("category").value = p?.category || "kmu";
+  $("status").value = p?.status || "В наличии";
+  $("brand").value = p?.brand || "";
+  $("model").value = p?.model || "";
+  $("year").value = p?.year || "";
+  $("price").value = p?.price || "Цена по запросу";
+  $("city").value = p?.city || "";
+  $("cta").value = p?.cta || "Узнать цену";
+  $("short").value = p?.short || "";
+  $("description").value = p?.description || "";
+  $("specs").value = p?.specs || "";
+  $("featured").checked = !!p?.featured;
+  $("featured_rank").value = p?.featured_rank || "";
+  const imgs = p?.images && Array.isArray(p.images) ? p.images : (p?.image ? [p.image] : []);
+  setFormImages(imgs);
+  $("btnDelete").disabled = !(p && p.id);
+}
+
+function getForm(){
+  const title = $("title").value.trim();
+  const slug = ($("slug").value.trim() || slugify(title)).trim();
+  const p = {
+    id: state.currentId,
+    title,
+    slug,
+    category: $("category").value,
+    status: $("status").value.trim(),
+    brand: $("brand").value.trim(),
+    model: $("model").value.trim(),
+    year: $("year").value.trim(),
+    price: $("price").value.trim(),
+    city: $("city").value.trim(),
+    cta: $("cta").value.trim(),
+    short: $("short").value.trim(),
+    description: $("description").value.trim(),
+    specs: $("specs").value.trim(),
+    featured: $("featured").checked,
+    featured_rank: $("featured_rank").value.trim(),
+    images: getFormImages()
+  };
+  // server will set p.image based on images[0]
+  return p;
+}
+
+async function load(){
+  $("statusText").textContent = "Загрузка…";
+  const prods = await api("/api/products");
+  state.products = Array.isArray(prods) ? prods : [];
+  state.filtered = [];
+  $("statusText").textContent = "Готово";
+  renderList();
+  if(state.currentId){
+    const p = state.products.find(x=>x.id===state.currentId);
+    if(p) setForm(p);
+  }
+}
+
+function selectProduct(id){
+  state.currentId = id;
+  const p = state.products.find(x=>x.id===id);
+  setForm(p);
+  renderList();
+}
+
+function clearForm(){
+  state.currentId = null;
+  setForm(null);
+  renderList();
+}
+
+async function save(){
+  const p = getForm();
+  if(!p.title){
+    alert("Введите название");
+    return;
+  }
+  if(!p.slug){
+    alert("Введите slug");
+    return;
+  }
+  $("statusText").textContent = "Сохранение…";
+  if(p.id){
+    await api("/api/products", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({action:"update", product:p})});
+  }else{
+    const r = await api("/api/products", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({action:"create", product:p})});
+    state.currentId = r.id;
+  }
+  await load();
+  $("statusText").textContent = "Сохранено ✅";
+}
+
+async function del(){
+  if(!state.currentId) return;
+  if(!confirm("Удалить товар?")) return;
+  $("statusText").textContent = "Удаление…";
+  await api("/api/products", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({action:"delete", id: state.currentId})});
+  state.currentId=null;
+  await load();
+  clearForm();
+  $("statusText").textContent = "Удалено ✅";
+}
+
+async function rebuild(){
+  $("statusText").textContent = "Пересборка…";
+  await api("/api/rebuild", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({})});
+  $("statusText").textContent = "Готово ✅";
+}
+
+async function importCsv(){
+  if(!confirm("Импортировать из data/products.csv? Это перезапишет products.json")) return;
+  $("statusText").textContent = "Импорт…";
+  const r = await api("/api/import_csv", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({})});
+  await load();
+  $("statusText").textContent = "Импортировано: " + (r.count || 0) + " ✅";
+}
+
+async function uploadFiles(){
+  const files = $("imageFiles").files;
+  if(!files || !files.length) return;
+  let cur = getFormImages();
+  $("statusText").textContent = "Загрузка фото…";
+  for(const file of files){
+    if(cur.length >= 10) break;
+    const fd = new FormData();
+    fd.append("file", file);
+    fd.append("slug", ($("slug").value || slugify($("title").value) || "image"));
+    fd.append("category", ($("category").value || "kmu"));
+    const r = await api("/api/upload", {method:"POST", body: fd});
+    if(r && r.path){
+      cur.push(r.path);
+      cur = normalizeImages(cur);
+      setFormImages(cur);
+    }
+  }
+  $("imageFiles").value = "";
+  $("statusText").textContent = "Фото загружены ✅";
+}
+
+$("btnReload").onclick = load;
+$("btnNew").onclick = clearForm;
+$("btnSave").onclick = save;
+$("btnDelete").onclick = del;
+$("btnRebuild").onclick = rebuild;
+$("btnImport").onclick = importCsv;
+$("btnUpload").onclick = uploadFiles;
+$("btnClearImages").onclick = ()=>setFormImages([]);
+$("q").addEventListener("input", ()=>{
+  const q = $("q").value.trim().toLowerCase();
+  if(!q){ state.filtered=[]; renderList(); return; }
+  state.filtered = state.products.filter(p=>{
+    const s = ((p.title||"") + " " + (p.brand||"") + " " + (p.model||"") + " " + (p.id||"")).toLowerCase();
+    return s.includes(q);
+  });
+  renderList();
+});
+
+$("title").addEventListener("blur", ()=>{
+  if(!$("slug").value.trim()){
+    $("slug").value = slugify($("title").value);
+  }
+});
+
+$("images").addEventListener("blur", ()=>{
+  setFormImages(getFormImages());
+});
+
+load();
+</script>
+</body>
+</html>

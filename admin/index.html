@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Админка — товары</title>
+  <link rel="stylesheet" href="/assets/css/styles.css"/>
+
+  <style>
+    /* ==========================
+       Admin redesign (v2)
+       ========================== */
+
+    body { min-height: 100vh; }
+
+    .admin-page{ padding: 18px 0 60px; }
+    .admin-topbar{
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      backdrop-filter: blur(14px);
+      background: rgba(10,14,30,.78);
+      border-bottom: 1px solid var(--line);
+    }
+    body.theme-white .admin-topbar{
+      background: rgba(255,255,255,.88);
+    }
+
+    .admin-topbar .inner{
+      display:flex; align-items:center; gap:14px; padding: 12px 0;
+    }
+    .admin-brand{
+      display:flex; align-items:center; gap:10px;
+      min-width: 220px;
+    }
+    .admin-brand .logo{
+      width:44px; height:44px; border-radius:12px;
+      background: linear-gradient(135deg,rgba(139,92,246,.95),rgba(34,211,238,.92));
+      display:grid; place-items:center; overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .admin-brand .logo img{ width:100%; height:100%; object-fit:contain; display:block; }
+    .admin-brand .t strong{ display:block; font-size:14px; line-height:1.15; }
+    .admin-brand .t span{ display:block; font-size:12px; color: var(--muted); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width: 36ch; }
+
+    .admin-nav{
+      display:flex; gap:8px; align-items:center; flex:1; min-width:0;
+      overflow:auto; scrollbar-width:none;
+    }
+    .admin-nav::-webkit-scrollbar{ display:none; }
+    .admin-nav a{
+      flex:0 0 auto;
+      font-size:13px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      background: rgba(255,255,255,.03);
+    }
+    .admin-nav a:hover,
+    .admin-nav a.active{
+      color: var(--text);
+      border-color: rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+    }
+    body.theme-white .admin-nav a{
+      background: rgba(15,23,42,.03);
+      color: rgba(15,23,42,.72);
+    }
+    body.theme-white .admin-nav a:hover,
+    body.theme-white .admin-nav a.active{
+      background: rgba(15,23,42,.06);
+      border-color: rgba(15,23,42,.12);
+      color: rgba(15,23,42,.95);
+    }
+
+    /* layout */
+    .admin-shell{
+      display:grid;
+      grid-template-columns: 360px 1fr;
+      gap: 16px;
+      margin-top: 16px;
+      align-items:start;
+    }
+    @media (max-width: 980px){
+      .admin-shell{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      background: rgba(255,255,255,.02);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow-card);
+    }
+    body.theme-white .panel{
+      background: rgba(255,255,255,.96);
+    }
+
+    .panel-head{
+      padding: 14px 14px 12px;
+      border-bottom: 1px solid var(--line);
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .panel-title{
+      font-weight: 800;
+      letter-spacing: -.2px;
+    }
+    .panel-sub{
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+    .panel-body{ padding: 14px; }
+
+    /* helpers */
+    .row{ display:flex; gap:10px; align-items:center; }
+    .grow{ flex:1; }
+    .stack{ display:flex; flex-direction:column; gap:6px; }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    @media (max-width: 980px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+
+    .field{ display:flex; flex-direction:column; gap:6px; }
+    .field > span{ font-size: 12px; color: var(--muted); }
+
+    /* sidebar list */
+    .searchbox{ display:flex; gap:10px; }
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+      max-height: calc(100vh - 290px);
+      overflow:auto;
+      padding-right: 2px;
+    }
+    .item{
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.02);
+      cursor:pointer;
+      transition: .12s;
+    }
+    .item:hover{ background: rgba(255,255,255,.05); transform: translateY(-1px); }
+    .item.active{
+      border-color: rgba(34,211,238,.35);
+      background: linear-gradient(180deg, rgba(34,211,238,.10), rgba(255,255,255,.02));
+    }
+    body.theme-white .item{ background: rgba(15,23,42,.03); }
+    body.theme-white .item:hover{ background: rgba(15,23,42,.05); }
+    body.theme-white .item.active{
+      background: linear-gradient(180deg, rgba(37,99,235,.10), rgba(255,255,255,.90));
+      border-color: rgba(37,99,235,.25);
+    }
+    .item .t{ font-weight:800; }
+    .item .m{ margin-top: 2px; font-size: 12px; color: var(--muted); }
+
+    /* main header actions */
+    .editor-head{
+      position: sticky;
+      top: 72px; /* ниже topbar */
+      z-index: 40;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(10,14,30,.55);
+      backdrop-filter: blur(14px);
+      border-top-left-radius: 22px;
+      border-top-right-radius: 22px;
+    }
+    body.theme-white .editor-head{
+      background: rgba(255,255,255,.78);
+    }
+    @media (max-width: 980px){
+      .editor-head{ top: 64px; }
+    }
+    .pid-badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .pid-badge code{
+      color: var(--text);
+      background: transparent;
+      padding: 0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    /* make selects look consistent in admin (override your global select forcing white) */
+    .admin-page select.input{
+      background: rgba(0,0,0,.16) !important;
+      color: var(--text) !important;
+      border-color: var(--line) !important;
+    }
+    body.theme-white .admin-page select.input{
+      background: rgba(255,255,255,.92) !important;
+      color: rgba(15,23,42,.95) !important;
+      border-color: rgba(15,23,42,.12) !important;
+    }
+
+    /* sections */
+    .section-title{
+      display:flex; align-items:flex-end; gap:10px;
+      margin: 0 0 10px;
+    }
+    .section-title h2{
+      margin: 0;
+      font-size: 16px;
+      letter-spacing: -.2px;
+    }
+    .section-title .hint{
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* images */
+    .gallery-grid{
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (max-width: 980px){
+      .gallery-grid{ grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 560px){
+      .gallery-grid{ grid-template-columns: repeat(2, 1fr); }
+    }
+    .thumb{
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      background: rgba(255,255,255,.03);
+    }
+    .thumb img{ width:100%; height: 110px; object-fit: cover; display:block; }
+    .thumb .bar{
+      position:absolute; left:6px; right:6px; bottom:6px;
+      display:flex; gap:6px; justify-content: space-between;
+    }
+    .thumb .mini{
+      padding: 7px 9px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.30);
+      color: var(--text);
+      font-size: 12px;
+      cursor:pointer;
+      transition: .12s;
+    }
+    .thumb .mini:hover{ background: rgba(0,0,0,.42); transform: translateY(-1px); }
+    .mini.danger{ border-color: rgba(255,80,80,.35); }
+    .mini.star{ border-color: rgba(255,220,0,.35); }
+
+    .statusline{
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px dashed rgba(255,255,255,.18);
+      color: var(--muted);
+      background: rgba(255,255,255,.03);
+      font-size: 13px;
+      min-height: 44px;
+      display:flex;
+      align-items:center;
+    }
+    body.theme-white .statusline{
+      border-color: rgba(15,23,42,.16);
+      background: rgba(15,23,42,.03);
+    }
+
+    /* top actions (reload/import/rebuild) */
+    .top-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- topbar -->
+  <div class="admin-topbar">
+    <div class="container inner">
+      <a class="admin-brand" href="/">
+        <span class="logo">
+          <img src="/logo.png" alt="Мир манипуляторов"
+               onerror="this.onerror=null;this.src='/assets/img/favicon.svg'">
+        </span>
+        <span class="t">
+          <strong>Мир манипуляторов</strong>
+          <span>Админ-панель • товары</span>
+        </span>
+      </a>
+
+      <nav class="admin-nav" aria-label="Навигация">
+        <a href="/catalog/">Каталог</a>
+        <a href="/services/">Услуги</a>
+        <a class="active" href="/admin/">Товары</a>
+        <a href="/admin/leads/">Лиды</a>
+      </nav>
+    </div>
+  </div>
+
+  <main class="container admin-page">
+    <!-- быстрые кнопки сверху -->
+    <div class="top-actions">
+      <button class="btn sm" id="btnReload" type="button">Обновить</button>
+      <button class="btn sm" id="btnImport" type="button">Импорт из CSV</button>
+      <button class="btn sm primary" id="btnRebuild" type="button">Пересобрать страницы</button>
+      <div class="grow"></div>
+      <div class="muted small" style="display:flex;align-items:center;">
+        Поддержка 2–10 фото • порядок важен (1-е — обложка)
+      </div>
+    </div>
+
+    <div class="admin-shell">
+      <!-- sidebar -->
+      <aside class="panel">
+        <div class="panel-head">
+          <div class="stack" style="min-width:0">
+            <div class="panel-title">Список товаров</div>
+            <div class="panel-sub">Кликни по товару, чтобы редактировать</div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="searchbox">
+            <input class="input" id="q" placeholder="Поиск по названию / бренду / модели"/>
+            <button class="btn sm ghost" id="btnNew" type="button">Новый</button>
+          </div>
+
+          <div style="height:12px"></div>
+          <div class="list" id="list"></div>
+        </div>
+      </aside>
+
+      <!-- editor -->
+      <section class="panel">
+        <div class="editor-head">
+          <div class="row" style="flex-wrap:wrap">
+            <span class="pid-badge">ID: <code id="pid">—</code></span>
+            <div class="grow"></div>
+            <button class="btn sm danger" id="btnDelete" type="button" disabled>Удалить</button>
+            <button class="btn sm primary" id="btnSave" type="button">Сохранить</button>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <!-- Основное -->
+          <div class="section-title">
+            <h2>Основное</h2>
+            <span class="hint">Название и карточка</span>
+          </div>
+
+          <div class="grid2">
+            <label class="field"><span>Название</span><input class="input" id="title" placeholder="Например: Palfinger PK 17502"/></label>
+            <label class="field"><span>Slug</span><input class="input" id="slug" placeholder="palfinger-pk-17502" style="font-family:ui-monospace,Menlo,Consolas,monospace"/></label>
+
+            <label class="field"><span>Категория</span>
+              <select class="input" id="category">
+                <option value="kmu">КМУ</option>
+                <option value="manipulator">Манипуляторы</option>
+                <option value="kran">Краны</option>
+                <option value="parts">Запчасти</option>
+                <option value="other">Другое</option>
+              </select>
+            </label>
+
+            <label class="field"><span>Статус</span><input class="input" id="status" placeholder="В наличии"/></label>
+
+            <label class="field"><span>Бренд</span><input class="input" id="brand" placeholder="Palfinger"/></label>
+            <label class="field"><span>Модель</span><input class="input" id="model" placeholder="PK 17502"/></label>
+
+            <label class="field"><span>Год</span><input class="input" id="year" placeholder="2006"/></label>
+            <label class="field"><span>Цена</span><input class="input" id="price" placeholder="Цена по запросу"/></label>
+
+            <label class="field"><span>Город</span><input class="input" id="city" placeholder="Санкт-Петербург"/></label>
+            <label class="field"><span>Текст кнопки</span><input class="input" id="cta" placeholder="Узнать цену"/></label>
+
+            <label class="field" style="grid-column:1/-1">
+              <span>Короткое описание</span>
+              <textarea class="input" id="short" rows="2" placeholder="1–2 предложения"></textarea>
+            </label>
+
+            <label class="field" style="grid-column:1/-1">
+              <span>Описание</span>
+              <textarea class="input" id="description" rows="5" placeholder="Абзацы можно разделять переносами строк"></textarea>
+            </label>
+
+            <label class="field" style="grid-column:1/-1">
+              <span>Характеристики (через ; или перенос строки, формат: Ключ: Значение)</span>
+              <textarea class="input" id="specs" rows="4" placeholder="Груз: ...&#10;Вылет: ...&#10;Секций: ..."
+                        style="font-family:ui-monospace,Menlo,Consolas,monospace"></textarea>
+            </label>
+          </div>
+
+          <div class="hr"></div>
+
+          <!-- Главная -->
+          <div class="section-title">
+            <h2>Показ на главной</h2>
+            <span class="hint">featured блок</span>
+          </div>
+
+          <div class="grid2">
+            <label class="field">
+              <span>На главной</span>
+              <div class="row" style="align-items:center">
+                <input type="checkbox" id="featured" style="width:18px;height:18px"/>
+                <span class="muted small">показывать в “Актуальных позициях”</span>
+              </div>
+            </label>
+
+            <label class="field"><span>Порядок (ранг)</span><input class="input" id="featured_rank" placeholder="например: 10"/></label>
+          </div>
+
+          <div class="hr"></div>
+
+          <!-- Фото -->
+          <div class="section-title">
+            <h2>Фото (до 10)</h2>
+            <span class="hint" id="imgCount">0/10</span>
+          </div>
+
+          <div class="muted small">
+            Порядок важен: первое фото — обложка (превью, соцсети). Можно загрузить несколько сразу.
+          </div>
+
+          <div style="height:10px"></div>
+
+          <div class="row" style="flex-wrap:wrap">
+            <input class="input" id="imageFiles" type="file" accept="image/*" multiple style="max-width:360px"/>
+            <button class="btn sm ghost" id="btnUpload" type="button">Загрузить</button>
+            <button class="btn sm ghost" id="btnClearImages" type="button">Очистить</button>
+          </div>
+
+          <label class="field" style="margin-top:10px">
+            <span>Ссылки на фото (по одной в строке)</span>
+            <textarea class="input" id="images" rows="4" placeholder="/assets/uploads/kmu/your-photo.webp"
+                      style="font-family:ui-monospace,Menlo,Consolas,monospace"></textarea>
+          </label>
+
+          <div class="gallery-grid" id="galleryPreview"></div>
+
+          <!-- статус -->
+          <div class="statusline" id="statusText">Готово</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const $ = (id)=>document.getElementById(id);
+
+    const state = { products: [], filtered: [], currentId: null };
+
+    function escHtml(s){
+      return (s||"").toString()
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#39;");
+    }
+
+    function slugify(s){
+      return (s||"")
+        .toLowerCase()
+        .replace(/ё/g,"е")
+        .replace(/[^a-z0-9а-я\s-]/g,"")
+        .trim()
+        .replace(/\s+/g,"-")
+        .replace(/-+/g,"-");
+    }
+
+    async function api(path, opts={}){
+      opts = Object.assign({credentials:'include'}, opts);
+      const res = await fetch(path, opts);
+      const ct = res.headers.get("content-type") || "";
+      const data = ct.includes("application/json") ? await res.json().catch(()=>null) : await res.text().catch(()=>null);
+      if(!res.ok) throw new Error((data && data.error) ? data.error : ("HTTP " + res.status));
+      return data;
+    }
+
+    function normalizeImages(arr){
+      let items = Array.isArray(arr) ? arr : (arr||"").toString().split(/\n+/);
+      items = items.map(x=> (x||"").toString().trim()).filter(Boolean);
+      const out=[];
+      const seen=new Set();
+      for(const x of items){
+        if(seen.has(x)) continue;
+        seen.add(x);
+        out.push(x);
+        if(out.length>=10) break;
+      }
+      return out;
+    }
+
+    function getFormImages(){
+      return normalizeImages($("images").value.split(/\n+/));
+    }
+
+    function setFormImages(images){
+      const arr = normalizeImages(images||[]);
+      $("images").value = arr.join("\n");
+      $("imgCount").textContent = arr.length + "/10";
+      renderGallery(arr);
+    }
+
+    function renderGallery(images){
+      const box = $("galleryPreview");
+      box.innerHTML = "";
+      const arr = normalizeImages(images);
+      arr.forEach((src, idx)=>{
+        const d = document.createElement("div");
+        d.className="thumb";
+        d.innerHTML = `
+          <img src="${escHtml(src)}" alt="photo ${idx+1}">
+          <div class="bar">
+            <button class="mini star" type="button" title="Сделать обложкой">★</button>
+            <button class="mini" type="button" title="Вверх">↑</button>
+            <button class="mini" type="button" title="Вниз">↓</button>
+            <button class="mini danger" type="button" title="Удалить">×</button>
+          </div>
+        `;
+        const [bStar,bUp,bDown,bDel] = d.querySelectorAll("button");
+        bStar.onclick = ()=>{
+          const cur = getFormImages();
+          const moved = cur.splice(idx,1)[0];
+          cur.unshift(moved);
+          setFormImages(cur);
+        };
+        bUp.onclick = ()=>{
+          const cur = getFormImages();
+          if(idx<=0) return;
+          [cur[idx-1],cur[idx]]=[cur[idx],cur[idx-1]];
+          setFormImages(cur);
+        };
+        bDown.onclick = ()=>{
+          const cur = getFormImages();
+          if(idx>=cur.length-1) return;
+          [cur[idx+1],cur[idx]]=[cur[idx],cur[idx+1]];
+          setFormImages(cur);
+        };
+        bDel.onclick = ()=>{
+          const cur = getFormImages();
+          cur.splice(idx,1);
+          setFormImages(cur);
+        };
+        box.appendChild(d);
+      });
+    }
+
+    function renderList(){
+      const box = $("list");
+      box.innerHTML="";
+      const arr = state.filtered.length ? state.filtered : state.products;
+      if(!arr.length){
+        box.innerHTML = '<div class="muted">Нет товаров</div>';
+        return;
+      }
+      arr.forEach(p=>{
+        const el = document.createElement("div");
+        el.className = "item" + (p.id===state.currentId ? " active":"");
+        const t = escHtml(p.title || (p.brand+" "+p.model).trim() || p.id);
+        const m = escHtml([p.category, p.status, p.price].filter(Boolean).join(" · "));
+        el.innerHTML = `<div class="t">${t}</div><div class="m">${m}</div>`;
+        el.onclick = ()=>selectProduct(p.id);
+        box.appendChild(el);
+      });
+    }
+
+    function setForm(p){
+      $("pid").textContent = p && p.id ? p.id : "—";
+      $("title").value = p?.title || "";
+      $("slug").value = p?.slug || "";
+      $("category").value = p?.category || "kmu";
+      $("status").value = p?.status || "В наличии";
+      $("brand").value = p?.brand || "";
+      $("model").value = p?.model || "";
+      $("year").value = p?.year || "";
+      $("price").value = p?.price || "Цена по запросу";
+      $("city").value = p?.city || "";
+      $("cta").value = p?.cta || "Узнать цену";
+      $("short").value = p?.short || "";
+      $("description").value = p?.description || "";
+      $("specs").value = p?.specs || "";
+      $("featured").checked = !!p?.featured;
+      $("featured_rank").value = p?.featured_rank || "";
+      const imgs = p?.images && Array.isArray(p.images) ? p.images : (p?.image ? [p.image] : []);
+      setFormImages(imgs);
+      $("btnDelete").disabled = !(p && p.id);
+    }
+
+    function getForm(){
+      const title = $("title").value.trim();
+      const slug = ($("slug").value.trim() || slugify(title)).trim();
+      const p = {
+        id: state.currentId,
+        title,
+        slug,
+        category: $("category").value,
+        status: $("status").value.trim(),
+        brand: $("brand").value.trim(),
+        model: $("model").value.trim(),
+        year: $("year").value.trim(),
+        price: $("price").value.trim(),
+        city: $("city").value.trim(),
+        cta: $("cta").value.trim(),
+        short: $("short").value.trim(),
+        description: $("description").value.trim(),
+        specs: $("specs").value.trim(),
+        featured: $("featured").checked,
+        featured_rank: $("featured_rank").value.trim(),
+        images: getFormImages()
+      };
+      return p;
+    }
+
+    async function load(){
+      $("statusText").textContent = "Загрузка…";
+      const prods = await api("/api/products");
+      state.products = Array.isArray(prods) ? prods : [];
+      state.filtered = [];
+      $("statusText").textContent = "Готово ✅";
+      renderList();
+      if(state.currentId){
+        const p = state.products.find(x=>x.id===state.currentId);
+        if(p) setForm(p);
+      }
+    }
+
+    function selectProduct(id){
+      state.currentId = id;
+      const p = state.products.find(x=>x.id===id);
+      setForm(p);
+      renderList();
+    }
+
+    function clearForm(){
+      state.currentId = null;
+      setForm(null);
+      renderList();
+    }
+
+    async function save(){
+      const p = getForm();
+      if(!p.title){ alert("Введите название"); return; }
+      if(!p.slug){ alert("Введите slug"); return; }
+
+      $("statusText").textContent = "Сохранение…";
+      if(p.id){
+        await api("/api/products", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({action:"update", product:p})});
+      }else{
+        const r = await api("/api/products", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({action:"create", product:p})});
+        state.currentId = r.id;
+      }
+      await load();
+      $("statusText").textContent = "Сохранено ✅";
+    }
+
+    async function del(){
+      if(!state.currentId) return;
+      if(!confirm("Удалить товар?")) return;
+      $("statusText").textContent = "Удаление…";
+      await api("/api/products", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({action:"delete", id: state.currentId})});
+      state.currentId=null;
+      await load();
+      clearForm();
+      $("statusText").textContent = "Удалено ✅";
+    }
+
+    async function rebuild(){
+      $("statusText").textContent = "Пересборка…";
+      await api("/api/rebuild", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({})});
+      $("statusText").textContent = "Готово ✅";
+    }
+
+    async function importCsv(){
+      if(!confirm("Импортировать из data/products.csv? Это перезапишет products.json")) return;
+      $("statusText").textContent = "Импорт…";
+      const r = await api("/api/import_csv", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({})});
+      await load();
+      $("statusText").textContent = "Импортировано: " + (r.count || 0) + " ✅";
+    }
+
+    async function uploadFiles(){
+      const files = $("imageFiles").files;
+      if(!files || !files.length) return;
+      let cur = getFormImages();
+      $("statusText").textContent = "Загрузка фото…";
+      for(const file of files){
+        if(cur.length >= 10) break;
+        const fd = new FormData();
+        fd.append("file", file);
+        fd.append("slug", ($("slug").value || slugify($("title").value) || "image"));
+        fd.append("category", ($("category").value || "kmu"));
+        const r = await api("/api/upload", {method:"POST", body: fd});
+        if(r && r.path){
+          cur.push(r.path);
+          cur = normalizeImages(cur);
+          setFormImages(cur);
+        }
+      }
+      $("imageFiles").value = "";
+      $("statusText").textContent = "Фото загружены ✅";
+    }
+
+    $("btnReload").onclick = load;
+    $("btnNew").onclick = clearForm;
+    $("btnSave").onclick = save;
+    $("btnDelete").onclick = del;
+    $("btnRebuild").onclick = rebuild;
+    $("btnImport").onclick = importCsv;
+    $("btnUpload").onclick = uploadFiles;
+    $("btnClearImages").onclick = ()=>setFormImages([]);
+
+    $("q").addEventListener("input", ()=>{
+      const q = $("q").value.trim().toLowerCase();
+      if(!q){ state.filtered=[]; renderList(); return; }
+      state.filtered = state.products.filter(p=>{
+        const s = ((p.title||"") + " " + (p.brand||"") + " " + (p.model||"") + " " + (p.id||"")).toLowerCase();
+        return s.includes(q);
+      });
+      renderList();
+    });
+
+    $("title").addEventListener("blur", ()=>{
+      if(!$("slug").value.trim()){
+        $("slug").value = slugify($("title").value);
+      }
+    });
+
+    $("images").addEventListener("blur", ()=>{
+      setFormImages(getFormImages());
+    });
+
+    load();
+  </script>
+</body>
+</html>

@@ -1,0 +1,746 @@
+:root{
+  --bg:#0b1020;
+  --card:#0f1733;
+  --prod-bg: linear-gradient(180deg, rgba(15,23,51,.95), rgba(12,20,45,.86));
+  --logo-size: 120px;
+
+  --text:#e9eefc;
+  --muted:#a8b3d6;
+  --line:rgba(255,255,255,.10);
+  --brand:#3b82f6;   /* blue */
+  --brand2:#22d3ee;  /* cyan */
+  --ok:#10b981;
+  --bad:#ef4444;
+  --shadow:0 18px 55px rgba(0,0,0,.35);
+  --tag-bg: rgba(255,255,255,.08);
+  --shadow-card: 0 12px 36px rgba(0,0,0,.22);
+  --img-bg: rgba(0,0,0,.18);
+  --img-border: rgba(255,255,255,.10);
+  --r:18px;
+  --max:1360px;
+  --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,"Noto Sans",sans-serif;
+
+  /* Hero background controls (0..10) */
+  --hero-bg-opacity10: 4;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+
+
+/* ============================
+   Theme: White (toggle)
+   ============================ */
+body.theme-white{
+  --bg:#f6f8fc;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#475569;
+  --line:rgba(15,23,42,.10);
+  --brand:#2563eb;
+  --brand2:#06b6d4;
+  --shadow:0 18px 55px rgba(15,23,42,.10);
+  background:
+    radial-gradient(900px 480px at 12% 6%, rgba(37,99,235,.18), transparent 60%),
+    radial-gradient(900px 520px at 92% 10%, rgba(6,182,212,.14), transparent 60%),
+    radial-gradient(1000px 650px at 50% 110%, rgba(99,102,241,.10), transparent 62%),
+    var(--bg);
+
+  --prod-bg: #ffffff;
+  --tag-bg: rgba(15,23,42,.06);
+  --shadow-card: 0 12px 36px rgba(15,23,42,.10);
+  --img-bg: rgba(2,6,23,.04);
+  --img-border: rgba(2,6,23,.08);
+}
+
+body{
+  margin:0;font-family:var(--font);color:var(--text);line-height:1.55;
+  background:
+    radial-gradient(1100px 650px at 15% 10%, rgba(59,130,246,.22), transparent 60%),
+    radial-gradient(950px 600px at 95% 12%, rgba(34,211,238,.18), transparent 55%),
+    radial-gradient(1100px 650px at 50% 120%, rgba(34,211,238,.08), transparent 60%),
+    var(--bg);
+}
+a{color:inherit;text-decoration:none}a:hover{opacity:.95}
+.container{max-width:var(--max);margin:0 auto;padding:0 18px}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.section{padding:56px 0}.tight{padding:34px 0}
+.hr{border-top:1px solid var(--line);margin:22px 0}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border-radius:999px;color:var(--muted);font-size:13px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;border-radius:14px;
+  border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer;transition:.15s}
+.btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16)}
+.btn.primary{background:linear-gradient(135deg,rgba(139,92,246,.96),rgba(34,211,238,.92));border-color:rgba(255,255,255,.12)}
+.btn.sm{padding:10px 12px;border-radius:12px;font-size:14px}
+.header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(10,14,30,.70);border-bottom:1px solid var(--line)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:14px 0;gap:14px}
+.brand{display:flex;align-items:center;gap:12px;min-width:180px}
+.logo{width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg,rgba(139,92,246,.95),rgba(34,211,238,.92));
+  box-shadow:0 10px 30px rgba(59,130,246,.20);display:grid;place-items:center}
+.brand strong{font-size:14px;letter-spacing:.2px}.brand span{display:block;font-size:12px;color:var(--muted);margin-top:1px}
+.nav{display:flex;gap:10px;align-items:center;min-width:0;flex:1;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;padding:6px 2px}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:0 0 auto;white-space:nowrap;min-width:0}
+.nav a{color:var(--muted);font-size:14px;padding:10px 10px;border-radius:12px;border:1px solid transparent}
+.nav a.active,.nav a:hover{color:var(--text);border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.04)}
+.mobile-toggle{display:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow)}
+.pad{padding:18px}
+.h1{margin:10px 0 10px;font-size:44px;line-height:1.1;letter-spacing:-.6px}
+.h2{font-size:28px;margin:0 0 10px;letter-spacing:-.4px}
+.lead{color:var(--muted);max-width:78ch;margin:0 0 18px}
+.hero{padding:44px 0 10px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:20px}
+.hero-main{padding:28px}
+.hero-actions{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.fact{padding:10px 12px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.12);color:var(--muted);font-size:13px}
+.fact b{color:var(--text)}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.product{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--prod-bg);
+  box-shadow:var(--shadow-card);display:flex;flex-direction:column}
+.pimg{aspect-ratio:16/10;background:var(--img-bg);display:grid;place-items:center;border-bottom:1px solid var(--line)}
+.pimg img{width:100%;height:100%;object-fit:cover;display:block}
+/* Product card: выравнивание текста и кнопок */
+.pbody{
+  padding:14px 14px 16px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  min-height:0;
+}
+
+/* Заголовок карточки (поддержка старого .title и нового .ptitle) */
+.ptitle,
+.title{
+  font-size:16px;
+  margin:0 0 10px;
+  line-height:1.25;
+  font-weight:700;
+}
+.ptitle a,
+.title a{color:var(--text);text-decoration:none;}
+.ptitle a:hover,
+.title a:hover{opacity:.9;}
+
+/* Контейнер тегов (если в HTML есть .meta) */
+.meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:0 0 10px;
+}
+
+/* Сами “пилюли” тегов */
+.tag{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--img-border);
+  color:var(--muted);
+  background:var(--tag-bg);
+  white-space:nowrap;
+}
+
+/* Кнопки всегда на одном уровне (внизу карточки) */
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:auto; /* ключевое */
+}
+.actions a{
+  flex:1;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  white-space:nowrap;
+}
+
+.input,select,textarea{width:100%;padding:12px 12px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.16);color:var(--text);outline:none}
+textarea{min-height:110px;resize:vertical}
+label{font-size:13px;color:var(--muted)}
+.form-grid{display:grid;gap:12px}.two{grid-template-columns:1fr 1fr}
+.breadcrumbs{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+.footer{border-top:1px solid var(--line);background:rgba(0,0,0,.10);padding:30px 0}
+.footer-grid{display:grid;grid-template-columns:1.1fr .9fr .9fr;gap:14px}
+.footer h4{margin:0 0 10px;font-size:14px}.footer a{color:var(--muted);font-size:14px}.footer a:hover{color:var(--text)}
+.copy{margin-top:16px;color:var(--muted);font-size:13px}
+.sticky{position:fixed;right:16px;bottom:16px;z-index:60;display:flex;flex-direction:column;gap:10px}
+.pill{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.14);
+  background:rgba(10,14,30,.70);backdrop-filter:blur(12px);box-shadow:0 16px 55px rgba(0,0,0,.35)}
+.pill svg{width:18px;height:18px}
+.notice{border:1px dashed rgba(255,255,255,.22);border-radius:var(--r);padding:14px 16px;color:var(--muted);background:rgba(255,255,255,.03)}
+.toast{margin-top:8px;font-size:14px;color:var(--muted)}
+.toast.ok{color:rgba(16,185,129,.95)}.toast.bad{color:rgba(239,68,68,.95)}
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr}.h1{font-size:38px}.products{grid-template-columns:repeat(2,1fr)}
+  .nav{display:none}.mobile-toggle{display:inline-flex}
+  .footer-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .h1{font-size:32px}.products{grid-template-columns:1fr}.two{grid-template-columns:1fr}
+  .sticky{left:16px;right:16px}.pill{justify-content:center}
+}
+
+/* Catalog filters */
+.catalog-filters { margin-bottom: 14px; }
+.filters-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+.filters-search { grid-column: 1 / -1; }
+.filters-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+@media (max-width: 980px) {
+  .filters-grid { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
+  .filters-search { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .filters-grid { grid-template-columns: 1fr; }
+}
+
+/* Select readability */
+select, select.input {
+  background: rgba(255,255,255,.94) !important;
+  color: #111 !important;
+  border-color: rgba(0,0,0,.10);
+}
+select option {
+  background: #fff;
+  color: #111;
+}
+select:focus { box-shadow: 0 0 0 3px rgba(59,130,246,.22); }
+
+/* Simple grids used on content pages */
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:980px){.grid3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.grid3{grid-template-columns:1fr}}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.step{padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.04)}
+@media (max-width:980px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+
+/* Footer alias (HTML uses .site-footer) */
+.site-footer{
+  border-top:1px solid var(--line);
+  background:rgba(0,0,0,.10);
+  padding:30px 0;
+}
+.site-footer a{color:var(--muted);font-size:14px}
+.site-footer a:hover{color:var(--text)}
+
+.header-cta{display:flex;gap:10px;align-items:center}
+@media (max-width:1180px){
+  .header-inner{flex-wrap:wrap;align-items:center}
+  .brand{min-width:0}
+  .nav{flex-wrap:wrap}
+}
+@media (max-width:560px){
+  .header-cta{width:100%;justify-content:space-between}
+  .actions{flex-direction:column}
+  .actions a{flex:auto}
+}
+
+
+/* Theme switch (slider) */
+/* Theme switch (minimal) */
+.theme-switch{display:flex;align-items:center;gap:8px;padding:4px 8px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06);backdrop-filter:saturate(120%) blur(6px);flex:0 0 auto}
+body.theme-white .theme-switch{ background:rgba(255,255,255,.70); }
+.ts-label{display:none}
+.switch{ position:relative; display:inline-block; width:38px; height:20px; flex:0 0 auto; }
+.switch input{ opacity:0; width:0; height:0; }
+.slider{ position:absolute; cursor:pointer; inset:0; background:rgba(255,255,255,.14); border:1px solid var(--line); transition:.2s; border-radius:999px; }
+.slider:before{ position:absolute; content:""; height:14px; width:14px; left:3px; top:2px; background:linear-gradient(135deg, var(--brand), var(--brand2)); border-radius:999px; transition:.2s; box-shadow:0 8px 18px rgba(0,0,0,.20); }
+.switch input:checked + .slider{ background:rgba(255,255,255,.22); }
+.switch input:checked + .slider:before{ transform:translateX(16px); }
+
+/* Compact labels on small screens */
+@media (max-width: 720px){
+  .ts-label{ display:none; }
+  .theme-switch{ padding:6px 8px; }
+}
+
+body.theme-white .header{
+  background:rgba(246,248,252,.78);
+  border-bottom:1px solid var(--line);
+}
+body.theme-white .nav a{ color: rgba(15,23,42,.72); }
+body.theme-white .nav a.active, body.theme-white .nav a:hover{
+  color: rgba(15,23,42,.96);
+  background:rgba(255,255,255,.80);
+}
+
+
+/* HERO BACKGROUND (from admin settings) */
+.hero{ position:relative; }
+.hero::before{
+  content:"";
+  position:absolute; inset:-1px;
+  background-image: var(--hero-bg);
+  background-size: cover;
+  background-position: center;
+  opacity: calc(var(--hero-bg-opacity10, 6) / 10);
+  filter: saturate(1.05) contrast(1.05);
+  pointer-events:none;
+}
+.hero::after{
+  content:"";
+  position:absolute; inset:-1px;
+  background: radial-gradient(900px 360px at 15% 25%, rgba(139,92,246,.18), transparent 60%),
+              radial-gradient(800px 320px at 80% 10%, rgba(34,211,238,.16), transparent 55%),
+              linear-gradient(180deg, rgba(10,14,30,.55), rgba(10,14,30,.90));
+  pointer-events:none;
+}
+.hero .container{ position:relative; z-index:1; }
+
+/* THEME WHITE OVERRIDES */
+body.theme-white .header{
+  background: rgba(255,255,255,.86);
+  border-bottom: 1px solid rgba(15,23,42,.08);
+}
+body.theme-white .nav a.active,
+body.theme-white .nav a:hover{
+  border-color: rgba(15,23,42,.10);
+  background: rgba(15,23,42,.04);
+}
+body.theme-white .btn{
+  background: rgba(15,23,42,.03);
+  border-color: rgba(15,23,42,.12);
+}
+body.theme-white .btn:hover{
+  background: rgba(15,23,42,.05);
+  border-color: rgba(15,23,42,.16);
+}
+body.theme-white .card{
+  background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(245,247,255,.92));
+  box-shadow: 0 12px 40px rgba(15,23,42,.10);
+}
+body.theme-white .fact{ background: rgba(15,23,42,.05); }
+body.theme-white .notice{ background: rgba(15,23,42,.03); border-color: rgba(15,23,42,.16); }
+
+body.theme-white .product{
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(245,247,255,.92));
+  box-shadow: 0 14px 40px rgba(15,23,42,.12);
+}
+body.theme-white .pimg{ background: rgba(15,23,42,.04); }
+body.theme-white .tag{ background: rgba(15,23,42,.04); color: rgba(15,23,42,.72); }
+
+body.theme-white .input, 
+body.theme-white select,
+body.theme-white textarea{
+  background: rgba(255,255,255,.92);
+  color: rgba(15,23,42,.95);
+}
+body.theme-white .footer{
+  background: rgba(255,255,255,.78);
+  border-top: 1px solid rgba(15,23,42,.08);
+}
+body.theme-white .pill{
+  background: rgba(255,255,255,.88);
+  border-color: rgba(15,23,42,.12);
+  box-shadow: 0 18px 60px rgba(15,23,42,.14);
+}
+body.theme-white .slider{
+  background: rgba(15,23,42,.08);
+}
+body.theme-white .switch input:checked + .slider{ background: rgba(15,23,42,.10); }
+
+
+body.theme-white .hero::after{
+  background: radial-gradient(900px 360px at 15% 25%, rgba(139,92,246,.14), transparent 60%),
+              radial-gradient(800px 320px at 80% 10%, rgba(34,211,238,.12), transparent 55%),
+              linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.85));
+}
+
+/* Theme switch in header */
+.header .theme-switch{
+  padding: 8px 10px;
+  border-radius: 999px;
+  height: 36px;
+}
+.header .theme-switch .ts-label{ font-size: 12px; }
+.header .theme-switch{ margin-left: 6px; }
+
+@media (max-width: 860px){
+  .header .theme-switch{
+    padding: 6px 8px;
+    height: 32px;
+  }
+  .header .theme-switch .ts-label{ font-size: 11px; }
+}
+
+.logo img{width:100%;height:100%;object-fit:contain;border-radius:14px;display:block}
+
+/* Prevent wrapping in header nav */
+.nav a{white-space:nowrap;min-width:0}
+
+.hint.ok{color:rgba(34,197,94,.95)}
+.hint.bad{color:rgba(239,68,68,.95)}
+
+.header-actions{display:flex;align-items:center;gap:12px;flex-wrap:nowrap}
+
+
+/* Brand text wrapping */
+.brand{min-width:0}
+.brand > span{min-width:0}
+.brand strong{line-height:1.2}
+.brand span span{line-height:1.2}
+@media (max-width:560px){
+  .brand span span{display:none}
+}
+
+
+/* ============================
+   Header polish (no overlaps)
+   ============================ */
+.header-inner{gap:12px}
+.nav{flex:1 1 420px;justify-content:center}
+.header-cta{flex:0 0 auto}
+.brand > span:last-child{min-width:0}
+.brand strong{display:block;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand > span:last-child > span{line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:560px){
+  .brand > span:last-child > span{display:none}
+}
+
+/* ============================
+   Theme switch — minimal
+   ============================ */
+.theme-switch{padding:4px 8px;gap:8px}
+.theme-switch .ts-label{display:none}
+.switch{width:38px;height:20px}
+.slider:before{height:14px;width:14px;left:3px;top:2px;box-shadow:0 6px 14px rgba(0,0,0,.28)}
+.switch input:checked + .slider:before{transform:translateX(18px)}
+
+/* ============================
+   Carousel (multi-photo)
+   ============================ */
+.carousel{position:relative;width:100%;height:100%;overflow:hidden;border-radius:inherit}
+.carousel-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;height:100%;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.carousel-track::-webkit-scrollbar{display:none}
+.carousel-track > img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;scroll-snap-align:start;display:block}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:999px;border:1px solid var(--img-border);background:rgba(0,0,0,.38);color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transition:opacity .15s, transform .15s;z-index:3}
+.carousel-btn:hover{transform:translateY(-50%) scale(1.03)}
+.carousel-btn[data-prev]{left:8px}
+.carousel-btn[data-next]{right:8px}
+.product:hover .carousel-btn,.carousel:focus-within .carousel-btn{opacity:1}
+.carousel-dots{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);display:flex;gap:6px;z-index:3}
+.carousel-dot{width:7px;height:7px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.45);cursor:pointer;padding:0}
+.carousel-dot[aria-current="true"]{background:var(--brand);border-color:rgba(255,255,255,.16)}
+body.theme-white .carousel-btn{background:rgba(255,255,255,.72);color:var(--text)}
+body.theme-white .carousel-dot{border-color:rgba(15,23,42,.16);background:rgba(15,23,42,.20)}
+
+/* Card image link overlay (keeps buttons clickable) */
+.pimg{position:relative}
+.pimg-link{position:absolute;inset:0;z-index:2}
+.carousel-btn,.carousel-dots{z-index:3}
+
+/* Product page gallery */
+.product-gallery{aspect-ratio:16/10;background:var(--img-bg);border:1px solid var(--img-border);border-radius:14px;overflow:hidden}
+
+/* Логотип: убрать фон-плашку */
+.header .brand .logo{
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* === FORCE: убираем плашку логотипа в футере при любом HTML === */
+footer .logo,
+.footer .logo,
+.site-footer .logo{
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+
+  width: auto !important;
+  height: auto !important;
+  border-radius: 0 !important;
+
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Картинка логотипа в футере */
+footer .logo img,
+.footer .logo img,
+.site-footer .logo img,
+footer img.logo-img,
+.footer img.logo-img,
+.site-footer img.logo-img{
+  width: auto !important;
+  height: 80px !important;   /* регулируй размер тут */
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+
+/* === LOGO: единый размер сверху и снизу (1 переменная) === */
+
+/* контейнер лого (убираем плашку и фиксируем размер) */
+.logo{
+  width: var(--logo-size) !important;
+  height: var(--logo-size) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* сама картинка */
+.logo img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  display: block !important;
+}
+
+
+
+
+
+
+
+/* ============================
+   MOBILE PRO REDESIGN (no PC changes)
+   Paste at the VERY END of CSS
+   ============================ */
+
+@media (max-width: 860px){
+
+  /* чтобы нижние фикс-кнопки не перекрывали контент */
+  body{ padding-bottom: calc(104px + env(safe-area-inset-bottom)); }
+  .container{ padding: 0 14px; }
+  .section{ padding: 34px 0; }
+  .tight{ padding: 22px 0; }
+
+  /* ===== Header: компактный, “приложение” ===== */
+  .header{
+    background: rgba(10,14,30,.82);
+    backdrop-filter: blur(16px);
+  }
+
+  .header-inner{
+    padding: 10px 0;
+    gap: 10px;
+    flex-wrap: nowrap;
+    display: grid;
+    grid-template-columns: 1fr auto auto; /* бренд | тема | меню */
+    align-items: center;
+  }
+
+  /* бренд слева: лого + текст */
+  .brand{
+    min-width: 0;
+    gap: 10px;
+  }
+  .brand strong{
+    font-size: 13px;
+    line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  /* если есть вторострочный слоган — прячем на мобиле */
+  .brand span span{ display:none; }
+
+  /* Убираем “кнопочный бар” в шапке — оставляем только theme + меню */
+  .header-cta, .header-actions{
+    display: contents; /* элементы разложатся в grid .header-inner */
+  }
+  /* скрываем все элементы в шапке, кроме переключателя темы и кнопки меню */
+  .header .header-cta > :not(.theme-switch):not(.mobile-toggle),
+  .header .header-actions > :not(.theme-switch):not(.mobile-toggle){
+    display: none !important;
+  }
+
+  /* Меню-кнопка и тема — компактные */
+  .mobile-toggle{
+    display: inline-flex !important;
+    height: 40px;
+    padding: 10px 12px;
+    border-radius: 14px;
+    justify-content: center;
+    min-width: 96px;
+  }
+  .theme-switch{
+    height: 40px;
+    padding: 6px 10px;
+    border-radius: 14px;
+    width: 56px;
+    justify-content: center;
+  }
+  .switch{ width: 42px; height: 22px; }
+  .slider:before{ width: 16px; height: 16px; top: 2px; left: 3px; }
+
+  /* ===== Mobile drawer menu (красиво) ===== */
+  #mobileNav{
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: none; /* откроется через JS */
+    padding: 0;
+  }
+  #mobileNav::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: rgba(0,0,0,.58);
+    backdrop-filter: blur(10px);
+  }
+  #mobileNav[data-open="1"]{ display:block; }
+
+  /* панель меню: если внутри есть любой контейнер — делаем его “панелью” */
+  #mobileNav > *{
+    position: relative;
+    z-index: 2;
+  }
+
+  /* если mobileNav содержит ссылки напрямую — тоже ок */
+  #mobileNav{
+    display:none;
+  }
+  #mobileNav[data-open="1"]{
+    display:block;
+  }
+
+  /* “панель” — сам mobileNav (fallback) */
+  #mobileNav{
+    --mnav-w: min(86vw, 360px);
+  }
+  /* если у тебя нет отдельного div-панели, то ссылки будут внутри #mobileNav:
+     превратим #mobileNav в панель через внутренний pseudo-контейнер нельзя,
+     поэтому делаем: первый child-контент выглядит панелью через padding */
+  #mobileNav[data-open="1"]{
+    padding: 16px;
+  }
+
+  /* кнопка закрытия (которую ты добавил) */
+  .mnav-close{
+    position: absolute;
+    top: 14px;
+    left: calc(16px + var(--mnav-w) - 44px);
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,.06);
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+
+  /* панель меню — стилизуем сам блок #mobileNav как панель */
+  #mobileNav[data-open="1"]{
+    padding-left: 16px;
+  }
+  #mobileNav[data-open="1"]::after{
+    content:"";
+    position:absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--mnav-w);
+    background: rgba(15,23,51,.98);
+    border-right: 1px solid rgba(255,255,255,.10);
+    box-shadow: 0 30px 90px rgba(0,0,0,.55);
+  }
+  /* ссылки и контент меню поверх панели */
+  #mobileNav[data-open="1"] *{
+    position: relative;
+    z-index: 3;
+  }
+
+  /* приведение ссылок меню к “крутым кнопкам” */
+  #mobileNav a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding: 14px 12px;
+    margin: 6px 0;
+    border-radius: 14px;
+    border: 1px solid transparent;
+    color: var(--text);
+    background: rgba(255,255,255,.04);
+  }
+  #mobileNav a:hover{
+    background: rgba(255,255,255,.07);
+    border-color: rgba(255,255,255,.12);
+  }
+
+  /* ===== Hero: читабельно, аккуратно ===== */
+  .hero{ padding: 16px 0 6px; }
+  .hero-grid{ grid-template-columns: 1fr; gap: 12px; }
+  .hero-main{ padding: 16px; border-radius: 18px; }
+  .h1{
+    font-size: 28px;
+    line-height: 1.12;
+    letter-spacing: -0.4px;
+    margin: 10px 0 10px;
+  }
+  .lead{ font-size: 15px; margin-bottom: 14px; }
+
+  .badge{
+    border-radius: 14px;
+    font-size: 12px;
+    padding: 8px 10px;
+    max-width: 100%;
+  }
+
+  .hero-actions{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .btn{ width: 100%; height: 46px; font-size: 14px; border-radius: 16px; }
+
+  /* ===== Каталог/карточки ===== */
+  .products{ grid-template-columns: 1fr; gap: 12px; }
+  .product{ border-radius: 18px; }
+  .pbody{ padding: 12px 12px 14px; }
+  .ptitle,.title{ font-size: 15px; }
+
+  /* ===== Нижняя панель действий (из .sticky делаем удобный bottom bar) ===== */
+  .sticky{
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    flex-direction: row;
+    gap: 10px;
+  }
+  .pill{
+    flex: 1;
+    justify-content: center;
+    border-radius: 16px;
+    height: 52px;
+    padding: 0 14px;
+  }
+}
+
+/* совсем маленькие экраны */
+@media (max-width: 380px){
+  .h1{ font-size: 26px; }
+  .btn{ height: 44px; font-size: 13px; }
+}

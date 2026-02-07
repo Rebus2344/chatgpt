@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="750" viewBox="0 0 1200 750">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#8b5cf6" stop-opacity=".85"/><stop offset=".6" stop-color="#22d3ee" stop-opacity=".55"/><stop offset="1" stop-color="#10b981" stop-opacity=".35"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="750" rx="36" fill="#0b1020"/>
+  <rect x="60" y="60" width="1080" height="630" rx="34" fill="url(#g)" opacity=".22"/>
+  <rect x="110" y="140" width="980" height="470" rx="28" fill="#0f1733" stroke="#ffffff" stroke-opacity=".12"/>
+  <path d="M250 500 L780 290" stroke="#22d3ee" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="780" cy="290" r="22" fill="#22d3ee"/>
+  <path d="M280 520 L320 520 L360 420 L530 420 L600 520 L640 520" fill="none" stroke="#8b5cf6" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M640 520 L740 520 L790 430 L860 430" fill="none" stroke="#10b981" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="120" y="245" fill="#e9eefc" font-family="system-ui" font-size="44" font-weight="700">Фото техники</text>
+  <text x="120" y="290" fill="#a8b3d6" font-family="system-ui" font-size="26">Пока заглушка. Поставьте реальные фото</text>
+</svg>
