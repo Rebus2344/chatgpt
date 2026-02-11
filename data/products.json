@@ -1,242 +1,306 @@
 [
-    {
-        "id": "kmu-224",
-        "category": "kmu",
-        "brand": "Palfinger",
-        "model": "РК 24001 K High Performance",
-        "year": "2012",
-        "status": "В наличии",
-        "price": "Договорная",
-        "city": "Санкт-Петербург",
-        "short": "Кран-манипулятор Palfinger РК 24001 K High Performance",
-        "description": "2012 год. Цена: договорная ₽",
-        "specs": "",
-        "cta": "Узнать цену",
-        "cargo": "",
-        "outreach": "",
-        "sections": "",
-        "control": "",
-        "title": "Palfinger РК 24001 K High Performance",
-        "slug": "palfinger-рк-24001-k-high-performance",
-        "images": [
-            "/assets/img/placeholder.svg"
-        ],
-        "image": "/assets/img/placeholder.svg"
-    },
-    {
-        "id": "kmu-223",
-        "category": "kmu",
-        "brand": "Hiab",
-        "model": "166XS",
-        "year": "2008",
-        "status": "В наличии",
-        "price": "Договорная",
-        "city": "Санкт-Петербург",
-        "short": "Hiab 166XS (пульт) HiPro",
-        "description": "Система HiPro (увеличенная грузоподъёмность). Отличное состояние. Цена: договорная ₽",
-        "specs": "HiPro; пульт",
-        "cta": "Узнать цену",
-        "cargo": "",
-        "outreach": "",
-        "sections": "",
-        "control": "",
-        "title": "Hiab 166XS",
-        "slug": "hiab-166xs",
-        "images": [
-            "/assets/img/placeholder.svg"
-        ],
-        "image": "/assets/img/placeholder.svg"
-    },
-    {
-        "id": "kmu-221",
-        "category": "kmu",
-        "brand": "Fassi",
-        "model": "190 A 24",
-        "year": "2006",
-        "status": "В наличии",
-        "price": "Договорная",
-        "city": "Санкт-Петербург",
-        "short": "Fassi 190 A 24",
-        "description": "Привезён из Германии, растаможен. Цена: договорная ₽",
-        "specs": "Грузоподъёмность на 2 м (как в каталоге)",
-        "cta": "Узнать цену",
-        "cargo": "",
-        "outreach": "",
-        "sections": "",
-        "control": "",
-        "title": "Fassi 190 A 24",
-        "slug": "fassi-190-a-24",
-        "images": [
-            "/assets/img/placeholder.svg"
-        ],
-        "image": "/assets/img/placeholder.svg"
-    },
-    {
-        "id": "kmu-222",
-        "category": "kmu",
-        "brand": "Palfinger",
-        "model": "PK 15002 (Performance)",
-        "year": "2005",
-        "status": "В наличии",
-        "price": "Договорная",
-        "city": "Санкт-Петербург",
-        "short": "Palfinger PK15002 (Performance)",
-        "description": "Отличное состояние. Производство Австрия. Цена: договорная ₽",
-        "specs": "",
-        "cta": "Узнать цену",
-        "cargo": "",
-        "outreach": "",
-        "sections": "",
-        "control": "",
-        "title": "Palfinger PK 15002 (Performance)",
-        "slug": "palfinger-pk-15002-performance",
-        "images": [
-            "/assets/img/placeholder.svg"
-        ],
-        "image": "/assets/img/placeholder.svg"
-    },
-    {
-        "id": "kmu-214",
-        "category": "kmu",
-        "brand": "HMF",
-        "model": "1730",
-        "year": "2011",
-        "status": "В наличии",
-        "price": "Договорная",
-        "city": "Санкт-Петербург",
-        "short": "HMF-1730",
-        "description": "Производство Дания. Привезён из Германии. Растаможен. Цена: договорная ₽",
-        "specs": "",
-        "cta": "Узнать цену",
-        "cargo": "",
-        "outreach": "",
-        "sections": "",
-        "control": "",
-        "title": "HMF 1730",
-        "slug": "hmf-1730",
-        "images": [
-            "/assets/img/placeholder.svg"
-        ],
-        "image": "/assets/img/placeholder.svg"
-    },
-    {
-        "id": "kmu-216",
-        "category": "kmu",
-        "brand": "Hiab",
-        "model": "144",
-        "year": "2005",
-        "status": "В наличии (2 шт.)",
-        "price": "Договорная",
-        "city": "Санкт-Петербург",
-        "short": "Hiab-144",
-        "description": "В наличии 2 одинаковых крана (текст в каталоге обрывается). Цена: договорная ₽",
-        "specs": "2 шт. (по каталогу)",
-        "cta": "Узнать цену",
-        "cargo": "",
-        "outreach": "",
-        "sections": "",
-        "control": "",
-        "title": "Hiab 144",
-        "slug": "hiab-144",
-        "images": [
-            "/assets/img/placeholder.svg"
-        ],
-        "image": "/assets/img/placeholder.svg"
-    },
-    {
-        "id": "kmu-208",
-        "category": "kmu",
-        "brand": "Ferrari",
-        "model": "728",
-        "year": "",
-        "status": "В наличии",
-        "price": "Договорная",
-        "city": "Санкт-Петербург",
-        "short": "FERRARI 728",
-        "description": "Грузовой момент 25.6 т/м. Производство Италия. Цена: договорная ₽",
-        "specs": "Грузовой момент 25.6 т/м",
-        "cta": "Узнать цену",
-        "cargo": "",
-        "outreach": "",
-        "sections": "",
-        "control": "",
-        "title": "Ferrari 728",
-        "slug": "ferrari-728",
-        "images": [
-            "/assets/img/placeholder.svg"
-        ],
-        "image": "/assets/img/placeholder.svg"
-    },
-    {
-        "id": "kmu-205",
-        "category": "kmu",
-        "brand": "HMF",
-        "model": "1820",
-        "year": "2008",
-        "status": "В наличии",
-        "price": "Договорная",
-        "city": "Санкт-Петербург",
-        "short": "HMF 1820",
-        "description": "Отличное состояние. Производство Дания. Привезён из Германии. Растаможен. Цена: договорная ₽",
-        "specs": "",
-        "cta": "Узнать цену",
-        "cargo": "",
-        "outreach": "",
-        "sections": "",
-        "control": "",
-        "title": "HMF 1820",
-        "slug": "hmf-1820",
-        "images": [
-            "/assets/img/placeholder.svg"
-        ],
-        "image": "/assets/img/placeholder.svg"
-    },
-    {
-        "id": "kmu-209",
-        "category": "kmu",
-        "brand": "Palfinger",
-        "model": "PK 17502 (Performance)",
-        "year": "2005",
-        "status": "В наличии",
-        "price": "Договорная",
-        "city": "Санкт-Петербург",
-        "short": "Palfinger PK17502 (Performance)",
-        "description": "Производство Австрия. Привезён из Германии. Растаможен. Текст обрывается на «3 гидравлических…». Цена: договорная ₽",
-        "specs": "3 гидравлических… (обрезано в каталоге)",
-        "cta": "Узнать цену",
-        "cargo": "",
-        "outreach": "",
-        "sections": "",
-        "control": "",
-        "title": "Palfinger PK 17502 (Performance)",
-        "slug": "palfinger-pk-17502-performance",
-        "images": [
-            "/assets/img/placeholder.svg"
-        ],
-        "image": "/assets/img/placeholder.svg"
-    },
-    {
-        "id": "kmu-219",
-        "category": "kmu",
-        "brand": "Palfinger",
-        "model": "17000",
-        "year": "",
-        "status": "В наличии",
-        "price": "Договорная",
-        "city": "Санкт-Петербург",
-        "short": "PALFINGER 17000",
-        "description": "Производство Австрия. Привезён из Германии. Растаможен. Цена: договорная ₽",
-        "specs": "3 гидравлических стрелы и 1 ручная (по каталогу)",
-        "cta": "Узнать цену",
-        "cargo": "",
-        "outreach": "",
-        "sections": "",
-        "control": "",
-        "title": "Palfinger 17000",
-        "slug": "palfinger-17000",
-        "images": [
-            "/assets/img/placeholder.svg"
-        ],
-        "image": "/assets/img/placeholder.svg"
-    }
+  {
+    "id": "kmu-224",
+    "category": "kmu",
+    "brand": "Palfinger",
+    "model": "РК 24001 K High Performance",
+    "year": "2012",
+    "status": "В наличии",
+    "price": "Договорная",
+    "city": "Санкт-Петербург",
+    "short": "Кран-манипулятор Palfinger РК 24001 K High Performance",
+    "description": "2012 год. Цена: договорная ₽",
+    "specs": "",
+    "cta": "Узнать цену",
+    "cargo": "",
+    "outreach": "",
+    "sections": "",
+    "control": "",
+    "title": "Palfinger РК 24001 K High Performance",
+    "slug": "palfinger-рк-24001-k-high-performance",
+    "images": [
+      "/assets/img/placeholder.svg"
+    ],
+    "image": "/assets/img/placeholder.svg",
+    "featured": false,
+    "featured_rank": "",
+    "specs_table": []
+  },
+  {
+    "id": "kmu-223",
+    "category": "kmu",
+    "brand": "Hiab",
+    "model": "166XS",
+    "year": "2008",
+    "status": "В наличии",
+    "price": "Договорная",
+    "city": "Санкт-Петербург",
+    "short": "Hiab 166XS (пульт) HiPro",
+    "description": "Система HiPro (увеличенная грузоподъёмность). Отличное состояние. Цена: договорная ₽",
+    "specs": "HiPro; пульт",
+    "cta": "Узнать цену",
+    "cargo": "",
+    "outreach": "",
+    "sections": "",
+    "control": "",
+    "title": "Hiab 166XS",
+    "slug": "hiab-166xs",
+    "images": [
+      "/assets/img/placeholder.svg"
+    ],
+    "image": "/assets/img/placeholder.svg",
+    "featured": false,
+    "featured_rank": "",
+    "specs_table": [
+      {
+        "k": "Параметр",
+        "v": "HiPro"
+      },
+      {
+        "k": "Параметр",
+        "v": "пульт"
+      }
+    ]
+  },
+  {
+    "id": "kmu-221",
+    "category": "kmu",
+    "brand": "Fassi",
+    "model": "190 A 24",
+    "year": "2006",
+    "status": "В наличии",
+    "price": "Договорная",
+    "city": "Санкт-Петербург",
+    "short": "Fassi 190 A 24",
+    "description": "Привезён из Германии, растаможен. Цена: договорная ₽",
+    "specs": "Грузоподъёмность на 2 м (как в каталоге)",
+    "cta": "Узнать цену",
+    "cargo": "",
+    "outreach": "",
+    "sections": "",
+    "control": "",
+    "title": "Fassi 190 A 24",
+    "slug": "fassi-190-a-24",
+    "images": [
+      "/assets/img/placeholder.svg"
+    ],
+    "image": "/assets/img/placeholder.svg",
+    "featured": false,
+    "featured_rank": "",
+    "specs_table": [
+      {
+        "k": "Параметр",
+        "v": "Грузоподъёмность на 2 м (как в каталоге)"
+      }
+    ]
+  },
+  {
+    "id": "kmu-222",
+    "category": "kmu",
+    "brand": "Palfinger",
+    "model": "PK 15002 (Performance)",
+    "year": "2005",
+    "status": "В наличии",
+    "price": "Договорная",
+    "city": "Санкт-Петербург",
+    "short": "Palfinger PK15002 (Performance)",
+    "description": "Отличное состояние. Производство Австрия. Цена: договорная ₽",
+    "specs": "",
+    "cta": "Узнать цену",
+    "cargo": "",
+    "outreach": "",
+    "sections": "",
+    "control": "",
+    "title": "Palfinger PK 15002 (Performance)",
+    "slug": "palfinger-pk-15002-performance",
+    "images": [
+      "/assets/img/placeholder.svg"
+    ],
+    "image": "/assets/img/placeholder.svg",
+    "featured": false,
+    "featured_rank": "",
+    "specs_table": []
+  },
+  {
+    "id": "kmu-214",
+    "category": "kmu",
+    "brand": "HMF",
+    "model": "1730",
+    "year": "2011",
+    "status": "В наличии",
+    "price": "Договорная",
+    "city": "Санкт-Петербург",
+    "short": "HMF-1730",
+    "description": "Производство Дания. Привезён из Германии. Растаможен. Цена: договорная ₽",
+    "specs": "",
+    "cta": "Узнать цену",
+    "cargo": "",
+    "outreach": "",
+    "sections": "",
+    "control": "",
+    "title": "HMF 1730",
+    "slug": "hmf-1730",
+    "images": [
+      "/assets/img/placeholder.svg"
+    ],
+    "image": "/assets/img/placeholder.svg",
+    "featured": false,
+    "featured_rank": "",
+    "specs_table": []
+  },
+  {
+    "id": "kmu-216",
+    "category": "kmu",
+    "brand": "Hiab",
+    "model": "144",
+    "year": "2005",
+    "status": "В наличии (2 шт.)",
+    "price": "Договорная",
+    "city": "Санкт-Петербург",
+    "short": "Hiab-144",
+    "description": "В наличии 2 одинаковых крана (текст в каталоге обрывается). Цена: договорная ₽",
+    "specs": "2 шт. (по каталогу)",
+    "cta": "Узнать цену",
+    "cargo": "",
+    "outreach": "",
+    "sections": "",
+    "control": "",
+    "title": "Hiab 144",
+    "slug": "hiab-144",
+    "images": [
+      "/assets/img/placeholder.svg"
+    ],
+    "image": "/assets/img/placeholder.svg",
+    "featured": false,
+    "featured_rank": "",
+    "specs_table": [
+      {
+        "k": "Параметр",
+        "v": "2 шт. (по каталогу)"
+      }
+    ]
+  },
+  {
+    "id": "kmu-208",
+    "category": "kmu",
+    "brand": "Ferrari",
+    "model": "728",
+    "year": "",
+    "status": "В наличии",
+    "price": "Договорная",
+    "city": "Санкт-Петербург",
+    "short": "FERRARI 728",
+    "description": "Грузовой момент 25.6 т/м. Производство Италия. Цена: договорная ₽",
+    "specs": "Грузовой момент 25.6 т/м",
+    "cta": "Узнать цену",
+    "cargo": "",
+    "outreach": "",
+    "sections": "",
+    "control": "",
+    "title": "Ferrari 728",
+    "slug": "ferrari-728",
+    "images": [
+      "/assets/img/placeholder.svg"
+    ],
+    "image": "/assets/img/placeholder.svg",
+    "featured": false,
+    "featured_rank": "",
+    "specs_table": [
+      {
+        "k": "Параметр",
+        "v": "Грузовой момент 25.6 т/м"
+      }
+    ]
+  },
+  {
+    "id": "kmu-205",
+    "category": "kmu",
+    "brand": "HMF",
+    "model": "1820",
+    "year": "2008",
+    "status": "В наличии",
+    "price": "Договорная",
+    "city": "Санкт-Петербург",
+    "short": "HMF 1820",
+    "description": "Отличное состояние. Производство Дания. Привезён из Германии. Растаможен. Цена: договорная ₽",
+    "specs": "",
+    "cta": "Узнать цену",
+    "cargo": "",
+    "outreach": "",
+    "sections": "",
+    "control": "",
+    "title": "HMF 1820",
+    "slug": "hmf-1820",
+    "images": [
+      "/assets/img/placeholder.svg"
+    ],
+    "image": "/assets/img/placeholder.svg",
+    "featured": false,
+    "featured_rank": "",
+    "specs_table": []
+  },
+  {
+    "id": "kmu-209",
+    "category": "kmu",
+    "brand": "Palfinger",
+    "model": "PK 17502 (Performance)",
+    "year": "2005",
+    "status": "В наличии",
+    "price": "Договорная",
+    "city": "Санкт-Петербург",
+    "short": "Palfinger PK17502 (Performance)",
+    "description": "Производство Австрия. Привезён из Германии. Растаможен. Текст обрывается на «3 гидравлических…». Цена: договорная ₽",
+    "specs": "3 гидравлических… (обрезано в каталоге)",
+    "cta": "Узнать цену",
+    "cargo": "",
+    "outreach": "",
+    "sections": "",
+    "control": "",
+    "title": "Palfinger PK 17502 (Performance)",
+    "slug": "palfinger-pk-17502-performance",
+    "images": [
+      "/assets/img/placeholder.svg"
+    ],
+    "image": "/assets/img/placeholder.svg",
+    "featured": false,
+    "featured_rank": "",
+    "specs_table": [
+      {
+        "k": "Параметр",
+        "v": "3 гидравлических… (обрезано в каталоге)"
+      }
+    ]
+  },
+  {
+    "id": "kmu-219",
+    "category": "kmu",
+    "brand": "Palfinger",
+    "model": "17000",
+    "year": "",
+    "status": "В наличии",
+    "price": "Договорная",
+    "city": "Санкт-Петербург",
+    "short": "PALFINGER 17000",
+    "description": "Производство Австрия. Привезён из Германии. Растаможен. Цена: договорная ₽",
+    "specs": "3 гидравлических стрелы и 1 ручная (по каталогу)",
+    "cta": "Узнать цену",
+    "cargo": "",
+    "outreach": "",
+    "sections": "",
+    "control": "",
+    "title": "Palfinger 17000",
+    "slug": "palfinger-17000",
+    "images": [
+      "/assets/img/placeholder.svg"
+    ],
+    "image": "/assets/img/placeholder.svg",
+    "featured": false,
+    "featured_rank": "",
+    "specs_table": [
+      {
+        "k": "Параметр",
+        "v": "3 гидравлических стрелы и 1 ручная (по каталогу)"
+      }
+    ]
+  }
 ]
