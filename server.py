@@ -27,7 +27,7 @@ ASSETS_DIR = os.path.join(BASE_DIR, "assets")
 UPLOADS_DIR = os.path.join(ASSETS_DIR, "uploads")
 
 # Public site URL (canonical/sitemap/schema). Override via env SITE_URL.
-SITE_URL = os.getenv("SITE_URL", "https://mir-crane.ru").strip().rstrip("/")
+SITE_URL = os.getenv("SITE_URL", "https://mircranov.ru").strip().rstrip("/")
 
 # Leads
 LEADS_DIR = os.path.join(BASE_DIR, "leads")
@@ -64,8 +64,8 @@ MAX_BODY_BYTES = int(os.getenv("MAX_BODY_BYTES", "5000000"))  # 5 MB for json bo
 MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_BYTES", "25000000"))  # 25 MB
 
 # Admin auth (Basic)
-ADMIN_USER = os.getenv("ADMIN_USER", "admin")
-ADMIN_PASS = os.getenv("ADMIN_PASS", "admin")
+ADMIN_USER = os.getenv("ADMIN_USER", "cryptocommunity28")
+ADMIN_PASS = os.getenv("ADMIN_PASS", "ip6zVP2F2WF0fji8")
 
 
 def basic_auth_ok(headers) -> bool:

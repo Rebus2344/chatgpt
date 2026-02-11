@@ -1,0 +1,9 @@
+# Ensure Authorization header is available in PHP (needed for BasicAuth on many shared hosts)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP:Authorization} .
+  RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
+
+# Optional hardening
+Options -Indexes

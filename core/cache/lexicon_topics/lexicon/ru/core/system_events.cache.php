@@ -1,0 +1,18 @@
+<?php  return array (
+  'clear' => 'Очистить',
+  'error_log' => 'Журнал ошибок',
+  'error_log_desc' => 'Здесь находится журнал ошибок MODX Revolution:',
+  'error_log_download' => 'Скачать журнал ошибок ([[+size]])',
+  'error_log_too_large' => 'Журнал ошибок <em>[[+name]]</em> слишком большой для просмотра. Вы можете скачать журнал, нажав на кнопку ниже.',
+  'system_events' => 'Системные события',
+  'priority' => 'Приоритет',
+  'deprecated_log' => 'Журнал устареваний',
+  'deprecated_log_desc' => 'Время от времени старая функциональность помечена как устаревшая для удаления в будущей версии. В таких случаях вы найдете уведомления об устаревании, которые предупреждают вас о необходимости обновлений в будущем.',
+  'deprecated_definition' => 'Функциональность',
+  'deprecated_since' => 'Устарел с',
+  'deprecated_recommendation' => 'Рекомендация',
+  'deprecated_caller' => 'Источник вызова',
+  'deprecated_caller_file' => 'Вызывается файлом',
+  'deprecated_caller_line' => 'Номер строки',
+  'deprecated_call_count' => 'Количество',
+);

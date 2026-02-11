@@ -253,7 +253,7 @@ function sortProducts(list, sort, q) {
   async function init() {
     // Load products
     try {
-      const res = await fetch("/api/public/products", { cache: "no-store" });
+      const res = await fetch("/api/public_products.php", { cache: "no-store" });
       all = (await res.json()).map(computeFacets);
     } catch (e) {
       // fallback: keep existing HTML cards and enable simple DOM-filter by title

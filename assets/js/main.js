@@ -71,7 +71,7 @@
       fields
     };
 
-    return postJSON("/api/lead", payload);
+    return postJSON("/api/lead.php", payload);
   }
 
   $$(".lead-form[data-lead]").forEach(form => {
@@ -170,7 +170,7 @@
     if(!box) return;
 
     try{
-      const res = await fetch("/api/public/products");
+      const res = await fetch("/api/public_products.php");
       const products = await res.json().catch(()=>[]);
       const kmu = (products || []).filter(p => (p.category || "kmu") === "kmu");
 
@@ -207,6 +207,70 @@
   renderHomeFeatured();
 
   
+  // ============================
+  // Product pages: hydrate gallery & similar from products.json
+  // ============================
+  async function hydrateProductPage(){
+    const m = (location.pathname || "").match(/^\/catalog\/([^\/]+)\/([^\/]+)\/?$/);
+    if(!m) return;
+
+    const cat  = decodeURIComponent(m[1] || "");
+    const slug = decodeURIComponent(m[2] || "");
+    if(!cat || !slug) return;
+
+    try{
+      const res = await fetch("/api/public_products.php?ts=" + Date.now(), { cache: "no-store" });
+      if(!res.ok) return;
+
+      const products = await res.json().catch(()=>[]);
+      const p = (products || []).find(x => (x.category || "kmu") === cat && (x.slug || "") === slug);
+      if(!p) return;
+
+      const titleRaw = p.title || p.name || "";
+      const title = titleRaw || ((p.brand || p.model) ? `${p.brand||""} ${p.model||""}`.trim() : slug);
+
+      // 1) Галерея товара — берём актуальные фото из админки
+      const galleryHost = document.querySelector(".product-gallery");
+      if(galleryHost){
+        const imgs = getProductImages(p);
+        galleryHost.innerHTML = renderCarousel(imgs, title);
+        initCarousels(galleryHost);
+
+        // OG:image на клиенте (для шаринга/SEO не влияет, но пользователю ок)
+        const og = document.querySelector('meta[property="og:image"]');
+        const first = imgs[0] || "";
+        if(og && first){
+          og.setAttribute("content", first.startsWith("/") ? (location.origin + first) : first);
+        }
+      }
+
+      // 2) Похожие товары — перерисуем, чтобы карточки тоже были актуальные
+      const sections = Array.from(document.querySelectorAll("section.section"));
+      const similarSection = sections.find(sec => {
+        const h2 = sec.querySelector("h2");
+        return h2 && (h2.textContent || "").trim() === "Похожие товары";
+      });
+
+      if(similarSection){
+        const box = similarSection.querySelector(".products");
+        if(box){
+          const list = (products || [])
+            .filter(x => (x.category || "kmu") === cat && (x.slug || "") !== slug)
+            .slice(0, 3);
+
+          if(list.length){
+            box.innerHTML = list.map(homeCard).join("\n");
+            initCarousels(box);
+          }
+        }
+      }
+
+    }catch(e){
+      // ignore
+    }
+  }
+
+  hydrateProductPage();
 
 
 
@@ -374,7 +438,7 @@
 
   async function applyPublicSettings(){
     try{
-      const res = await fetch("/api/public/settings", {cache:"no-store"});
+      const res = await fetch("/api/public_settings.php", {cache:"no-store"});
       if(!res.ok) return;
       const s = await res.json();
 

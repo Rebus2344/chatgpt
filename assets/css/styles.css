@@ -77,11 +77,11 @@ a{color:inherit;text-decoration:none}a:hover{opacity:.95}
 .brand{display:flex;align-items:center;gap:12px;min-width:180px}
 .logo{width:60px;height:60px;border-radius:14px;background:linear-gradient(135deg,rgba(139,92,246,.95),rgba(34,211,238,.92));
   box-shadow:0 10px 30px rgba(59,130,246,.20);display:grid;place-items:center}
-.brand strong{font-size:14px;letter-spacing:.2px}.brand span{display:block;font-size:12px;color:var(--muted);margin-top:1px}
+.brand strong{font-size:16px;letter-spacing:.2px}.brand span{display:block;font-size:12px;color:var(--muted);margin-top:1px}
 .nav{display:flex;gap:10px;align-items:center;min-width:0;flex:1;overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;padding:6px 2px}
 .nav::-webkit-scrollbar{display:none}
 .nav a{flex:0 0 auto;white-space:nowrap;min-width:0}
-.nav a{color:var(--muted);font-size:14px;padding:10px 10px;border-radius:12px;border:1px solid transparent}
+.nav a{color:var(--muted);font-size:16px;padding:10px 10px;border-radius:12px;border:1px solid transparent}
 .nav a.active,.nav a:hover{color:var(--text);border-color:rgba(255,255,255,.12);background:rgba(255,255,255,.04)}
 .mobile-toggle{display:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:var(--shadow)}
@@ -867,3 +867,25 @@ footer img.logo-img,
     font-size: 13px !important;
   }
 }
+
+
+/* Страница товара: стрелки карусели всегда видны */
+.product-gallery .carousel-btn{
+  opacity: 1 !important;     /* всегда показываем */
+  width: 46px;               /* удобнее тапать/кликать */
+  height: 46px;
+  font-size: 26px;           /* крупнее символ */
+  background: rgba(0,0,0,.45);
+  border: 1px solid var(--img-border);
+  backdrop-filter: blur(4px);
+}
+
+/* Чуть отодвинем от края */
+.product-gallery .carousel-btn[data-prev]{ left: 10px; }
+.product-gallery .carousel-btn[data-next]{ right: 10px; }
+
+/* В белой теме — посветлее */
+body.theme-white .product-gallery .carousel-btn{
+  background: rgba(255,255,255,.88);
+}
+

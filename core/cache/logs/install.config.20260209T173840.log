@@ -1,0 +1,2 @@
+[2026-02-09 17:38:40] (ERROR @ /var/www/u3409091/data/www/mircranov.ru/core/cache/setup/smarty/11434b6deefe9d641d0acfb0eb3bc30fba625612_0.file.complete.tpl.php : 30) PHP warning: Undefined array key "errors"
+[2026-02-09 17:38:40] (ERROR @ /var/www/u3409091/data/www/mircranov.ru/core/cache/setup/smarty/11434b6deefe9d641d0acfb0eb3bc30fba625612_0.file.complete.tpl.php : 30) PHP warning: Attempt to read property "value" on null

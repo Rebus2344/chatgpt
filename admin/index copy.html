@@ -320,7 +320,7 @@ function getForm(){
 
 async function load(){
   $("statusText").textContent = "Загрузка…";
-  const prods = await api("/api/products");
+  const prods = await api("/api/products.php");
   state.products = Array.isArray(prods) ? prods : [];
   state.filtered = [];
   $("statusText").textContent = "Готово";
@@ -356,9 +356,9 @@ async function save(){
   }
   $("statusText").textContent = "Сохранение…";
   if(p.id){
-    await api("/api/products", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({action:"update", product:p})});
+    await api("/api/products.php", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({action:"update", product:p})});
   }else{
-    const r = await api("/api/products", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({action:"create", product:p})});
+    const r = await api("/api/products.php", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({action:"create", product:p})});
     state.currentId = r.id;
   }
   await load();
@@ -369,7 +369,7 @@ async function del(){
   if(!state.currentId) return;
   if(!confirm("Удалить товар?")) return;
   $("statusText").textContent = "Удаление…";
-  await api("/api/products", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({action:"delete", id: state.currentId})});
+  await api("/api/products.php", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({action:"delete", id: state.currentId})});
   state.currentId=null;
   await load();
   clearForm();
@@ -378,14 +378,14 @@ async function del(){
 
 async function rebuild(){
   $("statusText").textContent = "Пересборка…";
-  await api("/api/rebuild", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({})});
+  await api("/api/rebuild.php", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({})});
   $("statusText").textContent = "Готово ✅";
 }
 
 async function importCsv(){
   if(!confirm("Импортировать из data/products.csv? Это перезапишет products.json")) return;
   $("statusText").textContent = "Импорт…";
-  const r = await api("/api/import_csv", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({})});
+  const r = await api("/api/import_csv.php", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({})});
   await load();
   $("statusText").textContent = "Импортировано: " + (r.count || 0) + " ✅";
 }
@@ -401,7 +401,7 @@ async function uploadFiles(){
     fd.append("file", file);
     fd.append("slug", ($("slug").value || slugify($("title").value) || "image"));
     fd.append("category", ($("category").value || "kmu"));
-    const r = await api("/api/upload", {method:"POST", body: fd});
+    const r = await api("/api/upload.php", {method:"POST", body: fd});
     if(r && r.path){
       cur.push(r.path);
       cur = normalizeImages(cur);

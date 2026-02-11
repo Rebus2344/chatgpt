@@ -33,7 +33,7 @@
     <div class="row">
       <h1 style="margin:0">Админка: лиды</h1>
       <div class="grow"></div>
-      <a class="btn btn-ghost" href="/api/leads.csv">Экспорт CSV</a>
+      <a class="btn btn-ghost" href="/api/leads_csv.php">Экспорт CSV</a>
       <button class="btn btn-primary" id="btnReload">Обновить</button>
     </div>
     <p class="muted">Заявки с форм сайта (узнать цену / подбор / консультация). Здесь отображаются записи из leads/leads.csv.</p>
@@ -70,7 +70,7 @@
     }
     async function refresh(){
       $("status").textContent = "Загрузка…";
-      const leads = await api("/api/leads");
+      const leads = await api("/api/leads.php");
       const tbody = $("tbl").querySelector("tbody");
       tbody.innerHTML = "";
       leads.slice().reverse().forEach(l=>{
